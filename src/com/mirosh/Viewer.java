@@ -4,15 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.charset.StandardCharsets;
 
+/**
+ * Rules control elements on form and take/give data from/to its elements to other classes.
+ */
 public class Viewer  {
 
-    JFrame mainFrame;
-    String message;
-    String name;
-    JTextArea jTextArea;
+    private JFrame mainFrame;
+    private String message;
+    private String name;
+    private JTextArea jTextArea;
 
+    /**
+     * Initialize fields with new values.
+     */
     public Viewer() {
         initializeFields();
         setWindowProperties();
@@ -112,10 +117,17 @@ public class Viewer  {
         getjTextArea().append("\n" + text);
     }
 
+    /**
+     * Shows the main client window.
+     */
     public void showWidndow() {
         getMainFrame().setVisible(true);
     }
 
+    /**
+     * Shows dialog for choose name.
+     * @return name that user entered.
+     */
     public String showNameDialog() {
         String s;
 

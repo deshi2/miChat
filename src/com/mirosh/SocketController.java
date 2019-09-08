@@ -4,6 +4,9 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Rules the connection via TCP/IP sockets.
+ */
 public class SocketController {
 
     private Socket socket;
@@ -30,6 +33,10 @@ public class SocketController {
         }
     }
 
+    /**
+     * Send string in JSON to the server.
+     * @param message string to be sent.
+     */
     public void send(String message) {
         try {
             bufferedWriter.write(message);
@@ -48,6 +55,9 @@ public class SocketController {
         }
     }
 
+    /**
+     * Close all conections for this socket.
+     */
     public void closeAll() {
         try {
             bufferedWriter.close();

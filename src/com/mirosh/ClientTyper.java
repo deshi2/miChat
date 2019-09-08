@@ -4,11 +4,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Allows user type new chat messages and send it to the server. Extends {@link com.mirosh.TCPConnector}.
+ */
 public class ClientTyper extends TCPConnector {
 
     private User user;
     private Viewer viewer;
 
+    /**
+     * Initialize fields.
+     * @param socketController {@link com.mirosh.SocketController} controls socket, send/receive messages directly
+     * @param viewer {@link com.mirosh.Viewer} rules elements on the window
+     */
     public ClientTyper(SocketController socketController, Viewer viewer) {
         super(socketController);
         setViewer(viewer);
@@ -39,6 +47,9 @@ public class ClientTyper extends TCPConnector {
         }
     }
 
+    /**
+     * Endless loop where if user entered new message and put send button, this messages will be sent.
+     */
     @Override
     public void run() {
         while (true) {
@@ -47,7 +58,7 @@ public class ClientTyper extends TCPConnector {
             System.out.println(text);
             if (text != "")
                 getSocketController().send(getMessageController().createMessage(getUser().getName(), text));
-                getViewer().setMessage("");
+            getViewer().setMessage("");
             try {
                 Thread.sleep(1);
             }catch(InterruptedException e) {
@@ -56,6 +67,10 @@ public class ClientTyper extends TCPConnector {
         }
     }
 
+    /**
+     * Sends to the server a special kind of message that means "hello, server, my name is user.getName()".
+     * Server will process this messages in a special way.
+     */
     public void sayHelloToServer() {
 
         setUser(new User(getViewer().showNameDialog()));

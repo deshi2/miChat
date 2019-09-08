@@ -1,17 +1,21 @@
 package com.mirosh;
 
-import javax.swing.plaf.ViewportUI;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * Rules all main operations on client, i.e. creates new threads, shows windows to user etc.
+ * The idea is to have 2 main threads on the clint application: one for listening for new messages from server (and
+ * show new message after receiving) and another for sending messages after user commanded to send.
+ */
 public class ClientController {
 
-    private Thread listenerThread; // thread for receiving messages from server
-    private Thread typingThread;  // thread for typing and sending new messages to server
-    private ClientTyper clientTyper;
-    private ClientListener clientListener;
-    private SocketController socketController;
-    private Viewer viewer;
+    private Thread listenerThread;            // thread for receiving messages from server
+    private Thread typingThread;              // thread for typing and sending new messages to server
+    private ClientTyper clientTyper;          // contains thread for type and send new messages to the server
+    private ClientListener clientListener;    // contains thread for receiving messages from server and showing them
+    private SocketController socketController;// controls connection, can send and receive messages via tcp/ip sockets
+    private Viewer viewer;                    // controls visual side, show windows, rules window elements etc
 
     private void setListenerThread(Thread thread) {
         this.listenerThread = thread;
@@ -45,7 +49,7 @@ public class ClientController {
         return this.clientListener;
     }
 
-    private void setVier(Viewer viewer) {
+    private void setViewer(Viewer viewer) {
         this.viewer = viewer;
     }
 
@@ -61,10 +65,13 @@ public class ClientController {
         return this.socketController;
     }
 
+    /**
+     * Connecting to server after been opened and shown main window.
+     */
     public ClientController() {
 
         try {
-            setVier(new Viewer());
+            setViewer(new Viewer());
             Socket socket = new Socket("127.0.0.1", 5555);
             setSocketController(new SocketController(socket));
 
@@ -79,6 +86,9 @@ public class ClientController {
         }
     }
 
+    /**
+     * Use to open client application and start to work (start all client threads).
+     */
     public void startClient() {
         getViewer().showWidndow();
         clientTyper.sayHelloToServer();

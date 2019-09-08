@@ -2,11 +2,14 @@ package com.mirosh;
 
 import java.util.ArrayList;
 
+/**
+ * Can send messages from array of messages to all known clients (client connections contains in another arrayList).
+ */
 public class MessagesServerSender implements Runnable {
 
     private MessageController messageController;
-    private ArrayList<ServerConnector> clientConnections;
-    private ArrayListLock messages;
+    private ArrayList<ServerConnector> clientConnections; // all client connections array
+    private ArrayListLock messages;                       // messages foe send queue
 
     private ArrayList<ServerConnector> getClientConnections() {
         return clientConnections;
@@ -32,12 +35,24 @@ public class MessagesServerSender implements Runnable {
         this.clientConnections = clientConnections;
     }
 
+    /**
+     *
+     * @param clientConnections Uses existing {@link com.mirosh.ServerConnector} ArrayList instance for sending messages
+     *                          to clients (client connections) from this array list.
+     * @param messageController use existing or new {@link com.mirosh.MessageController} instance for pack/unpack
+     *                          messages using JSON format.
+     * @param messages the queue to be send to clients.
+     */
     public MessagesServerSender(ArrayList<ServerConnector> clientConnections, MessageController messageController, ArrayListLock messages) {
         setClientConnections(clientConnections);
         setMessageController(messageController);
         setMessages(messages);
     }
 
+    /**
+     * Send messages from the queue to all connected clients. When queue of messages becomes not empty, then
+     * lock it, send messages, delete it and then, finally,  unlock.
+     */
     private void sendMessages() {
 
         if (getMessages().getArrayList().size() !=0) {
@@ -55,6 +70,9 @@ public class MessagesServerSender implements Runnable {
         }
     }
 
+    /**
+     * Endless loop of sending messages from the queue.
+     */
     public void run() {
 
         while (true) {
@@ -68,5 +86,3 @@ public class MessagesServerSender implements Runnable {
     }
 
 }
-
-

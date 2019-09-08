@@ -1,10 +1,17 @@
 package com.mirosh;
 
+/**
+ * Describes user, main field is name.
+ */
 public class User {
 
     private String name;
     private Condition condition;
 
+    /**
+     * Initialize with name.
+     * @param name name of the user
+     */
     public User(String name) {
         this.setName(name);
         this.setCondition(Condition.IN_CHATROOM);

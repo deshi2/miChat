@@ -1,10 +1,14 @@
- package com.mirosh;
+package com.mirosh;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
- public class ServerController {
+/**
+ * Rules all things that happens at the server side, i.e. creates new thread after client connected etc.
+ * The idea is to creates new thread for each client.
+ */
+public class ServerController {
 
     private static ServerController miServerController;
 
@@ -17,6 +21,10 @@ import java.util.ArrayList;
     private ArrayList<ServerConnector> clientConnections; // All current client connections.
     private ArrayListLock messages;  // array of Hash map of all client messages with elements: {"userName:message"}
 
+    /**
+     * We can have only one server so singleton pattern used.
+     * @return One and only instance of this class.
+     */
     public static ServerController getServerController() {
         if (miServerController == null) {
             miServerController = new ServerController();
@@ -65,6 +73,9 @@ import java.util.ArrayList;
 
     private void initializeThreads() { this.sendingThread = new Thread(getMessagesServerSender()); this.sendingThread.start(); }
 
+    /**
+     * After create instance of server start it.
+     */
     public void startServer() {
 
         System.out.println("Server started.");
@@ -73,6 +84,9 @@ import java.util.ArrayList;
 
     }
 
+    /**
+     * Endless loop for waiting new client connections. After client connected creates new thread for this connection.
+     */
     private synchronized void listen() {
 
         while(true) {
