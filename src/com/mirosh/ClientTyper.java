@@ -22,22 +22,6 @@ public class ClientTyper extends TCPConnector {
         setViewer(viewer);
     }
 
-    private void setViewer(Viewer viewer) {
-        this.viewer = viewer;
-    }
-
-    private Viewer getViewer() {
-        return this.viewer;
-    }
-
-    private void setUser(User user) {
-        this.user = user;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-
     public String readFromConsole() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -77,4 +61,23 @@ public class ClientTyper extends TCPConnector {
         String helloMessage = getMessageController().createHelloMessage(getUser().getName(), "Сервер");
         getSocketController().send(helloMessage);
     }
+
+    /* SETTERS AND GETTERS */
+
+    private void setViewer(Viewer viewer) {
+        this.viewer = viewer;
+    }
+
+    private Viewer getViewer() {
+        return this.viewer;
+    }
+
+    private void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
 }

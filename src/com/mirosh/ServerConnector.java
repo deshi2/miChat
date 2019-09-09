@@ -22,22 +22,6 @@ public class ServerConnector extends TCPConnector {
         setMessages(messages);
     }
 
-    private ArrayListLock getMessages() {
-        return this.messages;
-    }
-
-    private void setMessages(ArrayListLock messages) {
-        this.messages = messages;
-    }
-
-    private void setUser(User user) {
-        this.user = user;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-
     /**
      * Send to the server special kind of message that server see like service message means clientName successfully
      * connected to server".
@@ -65,4 +49,23 @@ public class ServerConnector extends TCPConnector {
             }
         }
     }
+
+    /* SETTERS AND GETTERS */
+
+    private void setMessages(ArrayListLock messages) {
+        this.messages = messages;
+    }
+
+    private ArrayListLock getMessages() {
+        return this.messages;
+    }
+
+    private void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
 }

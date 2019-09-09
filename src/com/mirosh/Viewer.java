@@ -15,11 +15,17 @@ public class Viewer  {
     private String name;
     private JTextArea jTextArea;
 
+    {
+        setMainFrame(new JFrame());
+        setjTextArea(new JTextArea());
+        setMessage("");
+        setName("");
+    }
+
     /**
      * Initialize fields with new values.
      */
     public Viewer() {
-        initializeFields();
         setWindowProperties();
         addElementsOnWindow();
     }
@@ -30,13 +36,6 @@ public class Viewer  {
 
     private JTextArea getjTextArea() {
         return this.jTextArea;
-    }
-
-    private void initializeFields() {
-        setMainFrame(new JFrame());
-        setjTextArea(new JTextArea());
-        setMessage("");
-        setName("");
     }
 
     private void addElementsOnWindow() {
@@ -89,6 +88,29 @@ public class Viewer  {
         System.out.println(message);
     }
 
+    public void addToTextArea(String text) {
+        getjTextArea().append("\n" + text);
+    }
+
+    /**
+     * Shows the main client window.
+     */
+    public void showWidndow() {
+        getMainFrame().setVisible(true);
+    }
+
+    /**
+     * Shows dialog for choose name.
+     * @return name that user entered.
+     */
+    public String showNameDialog() {
+        String s;
+        s = JOptionPane.showInputDialog(getMainFrame(), "Введите ваше имя", "Добро пожаловать в miChat!", JOptionPane.QUESTION_MESSAGE);
+        return s;
+    }
+
+    /* SETTERS AND GETTERS */
+
     private void setMainFrame(JFrame jFrame) {
         this.mainFrame = jFrame;
     }
@@ -111,29 +133,6 @@ public class Viewer  {
 
     private String getName() {
         return this.name;
-    }
-
-    public void addToTextArea(String text) {
-        getjTextArea().append("\n" + text);
-    }
-
-    /**
-     * Shows the main client window.
-     */
-    public void showWidndow() {
-        getMainFrame().setVisible(true);
-    }
-
-    /**
-     * Shows dialog for choose name.
-     * @return name that user entered.
-     */
-    public String showNameDialog() {
-        String s;
-
-        s = JOptionPane.showInputDialog(getMainFrame(), "Введите ваше имя", "Добро пожаловать в miChat!", JOptionPane.QUESTION_MESSAGE);
-
-        return s;
     }
 
 }

@@ -16,8 +16,8 @@ public class SocketController {
     public SocketController(Socket socket) {
         try {
             setSocket(socket);
-            setBufferedReader(this.socket);
-            setBufferedWriter(this.socket);
+            setBufferedReader();
+            setBufferedWriter();
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
@@ -26,8 +26,8 @@ public class SocketController {
     public SocketController(ServerSocket serverSocket) {
         try {
             setSocket(serverSocket.accept());
-            setBufferedReader(this.socket);
-            setBufferedWriter(this.socket);
+            setBufferedReader();
+            setBufferedWriter();
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
@@ -68,30 +68,36 @@ public class SocketController {
         }
     }
 
-    private void setSocket(Socket socket) {
-        this.socket = socket;
-    }
-
-    private void setBufferedReader(Socket socket) throws IOException {
-        if (socket == null) {
-            return;
-        }
-        this.bufferedReader = createBufferedReader(socket.getInputStream());
-    }
-
-    private void setBufferedWriter(Socket socket) throws IOException {
-        if (socket == null) {
-            return;
-        }
-        this.bufferedWriter = createBufferedWriter(socket.getOutputStream());
-    }
-
     private BufferedReader createBufferedReader(InputStream stream) {
         return new BufferedReader(new InputStreamReader(stream));
     }
 
     private BufferedWriter createBufferedWriter (OutputStream stream) {
         return new BufferedWriter(new OutputStreamWriter(stream));
+    }
+
+    /* SETTERS AND GETTERS */
+
+    private void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    private Socket getSocket() {
+        return this.socket;
+    }
+
+    private void setBufferedReader() throws IOException {
+        if (getSocket() == null) {
+            return;
+        }
+        this.bufferedReader = createBufferedReader(getSocket().getInputStream());
+    }
+
+    private void setBufferedWriter() throws IOException {
+        if (getSocket() == null) {
+            return;
+        }
+        this.bufferedWriter = createBufferedWriter(getSocket().getOutputStream());
     }
 
 }

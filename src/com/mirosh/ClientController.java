@@ -17,59 +17,7 @@ public class ClientController {
     private SocketController socketController;// controls connection, can send and receive messages via tcp/ip sockets
     private Viewer viewer;                    // controls visual side, show windows, rules window elements etc
 
-    private void setListenerThread(Thread thread) {
-        this.listenerThread = thread;
-    }
-
-    private Thread getListenerThread() {
-        return this.listenerThread;
-    }
-
-    private void setTypingThread(Thread thread) {
-        this.typingThread = thread;
-    }
-
-    private Thread getTypingThread() {
-        return this.typingThread;
-    }
-
-    private void setClientTyper(ClientTyper clientTyper) {
-        this.clientTyper = clientTyper;
-    }
-
-    private ClientTyper getClientTyper() {
-        return this.clientTyper;
-    }
-
-    private void setClientListener(ClientListener clientListener) {
-        this.clientListener = clientListener;
-    }
-
-    private ClientListener getClientListener() {
-        return this.clientListener;
-    }
-
-    private void setViewer(Viewer viewer) {
-        this.viewer = viewer;
-    }
-
-    private Viewer getViewer() {
-        return this.viewer;
-    }
-
-    private void setSocketController(SocketController socketController) {
-        this.socketController = socketController;
-    }
-
-    private SocketController getSocketController() {
-        return this.socketController;
-    }
-
-    /**
-     * Connecting to server after been opened and shown main window.
-     */
-    public ClientController() {
-
+    {
         try {
             setViewer(new Viewer());
             Socket socket = new Socket("127.0.0.1", 5555);
@@ -91,8 +39,59 @@ public class ClientController {
      */
     public void startClient() {
         getViewer().showWidndow();
-        clientTyper.sayHelloToServer();
-        this.typingThread.start();
-        this.listenerThread.start();
+        getClientTyper().sayHelloToServer();
+        getTypingThread().start();
+        getListenerThread().start();
     }
+
+    /* SETTERS AND GETTERS */
+
+    private void setSocketController(SocketController socketController) {
+        this.socketController = socketController;
+    }
+
+    private SocketController getSocketController() {
+        return this.socketController;
+    }
+
+    private void setViewer(Viewer viewer) {
+        this.viewer = viewer;
+    }
+
+    private Viewer getViewer() {
+        return this.viewer;
+    }
+
+    private void setClientListener(ClientListener clientListener) {
+        this.clientListener = clientListener;
+    }
+
+    private ClientListener getClientListener() {
+        return this.clientListener;
+    }
+
+    private void setClientTyper(ClientTyper clientTyper) {
+        this.clientTyper = clientTyper;
+    }
+
+    private ClientTyper getClientTyper() {
+        return this.clientTyper;
+    }
+
+    private void setTypingThread(Thread thread) {
+        this.typingThread = thread;
+    }
+
+    private Thread getTypingThread() {
+        return this.typingThread;
+    }
+
+    private void setListenerThread(Thread thread) {
+        this.listenerThread = thread;
+    }
+
+    private Thread getListenerThread() {
+        return this.listenerThread;
+    }
+
 }

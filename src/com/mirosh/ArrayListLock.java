@@ -12,20 +12,16 @@ public class ArrayListLock {
     private ArrayList<String> arrayList;
     private final Lock lock = new ReentrantLock();
 
+    {
+        setArrayList(new ArrayList<String>());
+    }
+
     public void lock() {
-        lock.lock();
+        getLock().lock();
     }
 
     public void unlock() {
-        lock.unlock();
-    }
-
-    public ArrayList<String> getArrayList() {
-        return this.arrayList;
-    }
-
-    public ArrayListLock() {
-        initializeArrayList();
+        getLock().unlock();
     }
 
     public void clearAll() {
@@ -36,8 +32,18 @@ public class ArrayListLock {
         getArrayList().add(s);
     }
 
-    private void initializeArrayList() {
-        arrayList = new ArrayList<String>();
+    /* SETTERS AND GETTERS */
+
+    private void setArrayList(ArrayList<String> arrayList) {
+        this.arrayList = arrayList;
+    }
+
+    public ArrayList<String> getArrayList() {
+        return this.arrayList;
+    }
+
+    private Lock getLock() {
+        return this.lock;
     }
 
 }

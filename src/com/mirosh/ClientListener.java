@@ -21,6 +21,24 @@ public class ClientListener extends TCPConnector {
         setViewer(viewer);
     }
 
+    /**
+     * Endless loop for receiving messages and showing them on the screen.
+     */
+    @Override
+    public void run() {
+        while (true) {
+            String incomingMessage = getSocketController().receive();
+            getViewer().addToTextArea(getMessageController().createDisplayableText(incomingMessage));
+            try {
+                Thread.sleep(10);
+            }catch(InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /* SETTERS AND GETTERS */
+
     private void setViewer(Viewer viewer) {
         this.viewer = viewer;
     }
@@ -37,19 +55,4 @@ public class ClientListener extends TCPConnector {
         return this.user;
     }
 
-    /**
-     * Endless loop for receiving messages and showing them on the screen.
-     */
-    @Override
-    public void run() {
-        while (true) {
-            String incomingMessage = getSocketController().receive();
-            getViewer().addToTextArea(getMessageController().createDisplayableText(incomingMessage));
-            try {
-                Thread.sleep(10);
-            }catch(InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 }

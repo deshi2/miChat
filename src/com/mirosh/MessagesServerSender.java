@@ -11,30 +11,6 @@ public class MessagesServerSender implements Runnable {
     private ArrayList<ServerConnector> clientConnections; // all client connections array
     private ArrayListLock messages;                       // messages foe send queue
 
-    private ArrayList<ServerConnector> getClientConnections() {
-        return clientConnections;
-    }
-
-    private MessageController getMessageController() {
-        return this.messageController;
-    }
-
-    private void setMessageController(MessageController messageController) {
-        this.messageController = messageController;
-    }
-
-    private ArrayListLock getMessages() {
-        return messages;
-    }
-
-    private void setMessages(ArrayListLock messages) {
-        this.messages = messages;
-    }
-
-    private void setClientConnections(ArrayList<ServerConnector> clientConnections) {
-        this.clientConnections = clientConnections;
-    }
-
     /**
      *
      * @param clientConnections Uses existing {@link com.mirosh.ServerConnector} ArrayList instance for sending messages
@@ -83,6 +59,32 @@ public class MessagesServerSender implements Runnable {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    /* SETTERS AND GETTERS */
+
+    private void setClientConnections(ArrayList<ServerConnector> clientConnections) {
+        this.clientConnections = clientConnections;
+    }
+
+    private ArrayList<ServerConnector> getClientConnections() {
+        return clientConnections;
+    }
+
+    private MessageController getMessageController() {
+        return this.messageController;
+    }
+
+    private void setMessageController(MessageController messageController) {
+        this.messageController = messageController;
+    }
+
+    private void setMessages(ArrayListLock messages) {
+        this.messages = messages;
+    }
+
+    private ArrayListLock getMessages() {
+        return messages;
     }
 
 }

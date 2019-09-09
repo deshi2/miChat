@@ -17,6 +17,16 @@ public class User {
         this.setCondition(Condition.IN_CHATROOM);
     }
 
+    private static enum Condition {
+        IN_GAME,
+        IN_CHATROOM;
+
+        private Condition() {
+        }
+    }
+
+    /* SETTERS AND GETTERS */
+
     public String getName() {
         return this.name;
     }
@@ -33,11 +43,4 @@ public class User {
         return this.condition;
     }
 
-    private static enum Condition {
-        IN_GAME,
-        IN_CHATROOM;
-
-        private Condition() {
-        }
-    }
 }
